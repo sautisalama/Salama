@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sauti Salama</title>
+</head>
+<body>
+    <h1>Sauti Salama</h1>
+    <h3>
+        <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="{% url 'create_report' %}" id="report-link">Report</a>
+        </li>
+    </h3>
+    <script>
+        document.getElementById('report-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            navigator.geolocation.getCurrentPosition(function(position) {
+                window.location.href = `{% url 'create_report' %}?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+            }, function() {
+                window.location.href = '{% url 'create_report' %}';
+            });
+        });
+    </script>
+</body>
+</html>

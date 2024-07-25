@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Report</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="status"></h1>
+        <form method="post" id="reportForm">
+            {% csrf_token %}
+            <input type="text" id="id_first_name" name="first_name" placeholder="First Name">
+            <input type="text" id="id_last_name" name="last_name" placeholder="Last Name">
+            <input type="email" id="id_email" name="email" placeholder="Email">
+            <input type="tel" id="id_phone" name="phone" placeholder="Phone">
+            <button type="submit" class="find-state">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const status = document.querySelector('.status');
+            const firstName = document.getElementById('id_first_name').value;
+            const lastName = document.getElementById('id_last_name').value;
+            const email = document.getElementById('id_email').value;
+            const phone = document.getElementById('id_phone').value;
+
+            const params = new URLSearchParams(window.location.search);
+            const latitude = params.get('lat');
+            const longitude = params.get('lon');
+
+            if (latitude && longitude) {
+                fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+                .then(res => res.json())
+                .then(data => {
+                    fetch('/create_report', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                            'x-requested-with': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({
+                            first_name: firstName,
+                            last_name: lastName,
+                            email: email,
+                            phone: phone,
+                            latitude: latitude,
+                            longitude: longitude,
+                            state: data.principalSubdivision,
+                            country: data.countryName,
+                            countryCode: data.countryCode,
+                            city: data.city,
+                            postcode: data.postcode,
+                            continent: data.continent,
+                            continentCode: data.continentCode,
+                            locality: data.locality,
+                            plusCode: data.plusCode,
+                            principalSubdivision: data.principalSubdivision,
+                            principalSubdivisionCode: data.principalSubdivisionCode,
+                            administrative: data.localityInfo.administrative,
+                            // informative: data.informative
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Success:', data);
+                        if (data.message) {
+                            window.location.href = '/';
+                        } else {
+                            status.textContent = data.error;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        status.textContent = 'An error occurred';
+                    });
+                });
+            } else {
+                status.textContent = 'Unable to retrieve your location';
+            }
+        });
+    </script>
+</body>
+</html>
