@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Detail</title>
+</head>
+<body>
+    <h1>Report Detail</h1>
+    <p><strong>Location:</strong> {{ report.latitude }}, {{ report.longitude }}</p>
+    <p><strong>Type of Incident:</strong> {{ report.type_of_incident }}</p>
+    <p><strong>Urgency:</strong> {{ report.urgency }}</p>
+    <p><strong>Additional Info:</strong> {{ report.additional_info }}</p>
+    <h2>Matched Support Services</h2>
+    <ul>
+        {% for service in services %}
+        <li>{{ service.name }} (Type: {{ service.type_of_service }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
