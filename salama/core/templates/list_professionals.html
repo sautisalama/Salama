@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Services</title>
+</head>
+<body>
+    <h1>Professional Services</h1>
+    <ul>
+        {% for professional in professionals %}
+            <li>
+                <h2>{{ professional.profession }}</h2>
+                <p>{{ professional.bio }}</p>
+                <p>Availability: {{ professional.availability }}</p>
+                <p>Tokens: {{ professional.tokens }}</p>
+                <a href="{% url 'book_appointment' professional.id %}">Book Appointment</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
