@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Bookings</title>
+</head>
+<body>
+    <h1>Professional Bookings</h1>
+    <p>Tokens: {{ tokens }}</p>
+    <ul>
+        {% for appointment in appointments %}
+            <li>
+                <p>Survivor: {{ appointment.survivor.username }}</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                    <button type="submit">Confirm</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

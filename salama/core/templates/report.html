@@ -14,6 +14,58 @@
             <input type="text" id="id_last_name" name="last_name" placeholder="Last Name">
             <input type="email" id="id_email" name="email" placeholder="Email">
             <input type="tel" id="id_phone" name="phone" placeholder="Phone">
+            <input type="location" id="id_location" name="location" placeholder="location">
+            <select id="id_type_of_incident" name="type_of_incident">
+                <option value="">Select Incident Type</option>
+                <option value="physical">Physical</option>
+                <option value="emotional">Emotional</option>
+                <option value="sexual">Sexual</option>
+                <option value="financial">Financial</option>
+                <option value="other">Other (please specify)</option>
+            </select>
+            <textarea id="id_incident_description" name="incident_description" placeholder="Incident Description"></textarea>
+            <select id="id_urgency" name="urgency">
+                <option value="">Select Urgency</option>
+                <option value="high">High (Immediate danger)</option>
+                <option value="medium">Medium (Needs attention soon)</option>
+                <option value="low">Low (Not urgent)</option>
+            </select>
+            <input type="date" id="id_dob" name="dob" placeholder="Date of Birth">
+            <select id="id_gender" name="gender">
+                <option value="">Select Gender</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="non_binary">Non-binary</option>
+                <option value="prefer_not_to_say">Prefer not to say</option>
+            </select>
+            <select id="id_support_services" name="support_services">
+                <option value="">Select Support Services</option>
+                <option value="legal">Legal</option>
+                <option value="medical">Medical</option>
+                <option value="mental_health">Mental Health</option>
+                <option value="shelter">Shelter</option>
+                <option value="financial_assistance">Financial Assistance</option>
+                <option value="other">Other (please specify)</option>
+            </select>
+            <select id="id_preferred_language" name="preferred_language">
+                <option value="">Select Preferred Language</option>
+                <option value="english">English</option>
+                <option value="swahili">Swahili</option>
+                <option value="other">Other (please specify)</option>
+            </select>
+            <textarea id="id_additional_info" name="additional_info" placeholder="Additional Information"></textarea>
+            <select id="id_contact_preference" name="contact_preference">
+                <option value="">Select Contact Preference</option>
+                <option value="phone_call">Phone Call</option>
+                <option value="sms">SMS</option>
+                <option value="email">Email</option>
+                <option value="do_not_contact">Do not contact</option>
+            </select>
+            <select id="id_consent" name="consent">
+                <option value="">Select Consent</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
             <button type="submit" class="find-state">Submit</button>
         </form>
     </div>
@@ -25,6 +77,17 @@
             const lastName = document.getElementById('id_last_name').value;
             const email = document.getElementById('id_email').value;
             const phone = document.getElementById('id_phone').value;
+            const location = document.getElementById('id_location').value;
+            const typeOfIncident = document.getElementById('id_type_of_incident').value;
+            const incidentDescription = document.getElementById('id_incident_description').value;
+            const urgency = document.getElementById('id_urgency').value;
+            const dob = document.getElementById('id_dob').value;
+            const gender = document.getElementById('id_gender').value;
+            const supportServices = document.getElementById('id_support_services').value;
+            const preferredLanguage = document.getElementById('id_preferred_language').value;
+            const additionalInfo = document.getElementById('id_additional_info').value;
+            const contactPreference = document.getElementById('id_contact_preference').value;
+            const consent = document.getElementById('id_consent').value;
 
             const params = new URLSearchParams(window.location.search);
             const latitude = params.get('lat');
@@ -46,6 +109,7 @@
                             last_name: lastName,
                             email: email,
                             phone: phone,
+                            location: location,
                             latitude: latitude,
                             longitude: longitude,
                             state: data.principalSubdivision,
@@ -60,6 +124,16 @@
                             principalSubdivision: data.principalSubdivision,
                             principalSubdivisionCode: data.principalSubdivisionCode,
                             administrative: data.localityInfo.administrative,
+                            type_of_incident: typeOfIncident,
+                            incident_description: incidentDescription,
+                            urgency: urgency,
+                            dob: dob,
+                            gender: gender,
+                            support_services: supportServices,
+                            preferred_language: preferredLanguage,
+                            additional_info: additionalInfo,
+                            contact_preference: contactPreference,
+                            consent: consent,
                             // informative: data.informative
                         })
                     })

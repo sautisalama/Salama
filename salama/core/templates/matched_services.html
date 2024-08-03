@@ -1,0 +1,28 @@
+<!-- myapp/templates/myapp/matched_services.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matched Services</title>
+</head>
+<body>
+    <h1>Matched Services for Report #{{ report.id }}</h1>
+
+    {% if matched_services %}
+        <ul>
+            {% for service in matched_services %}
+                <li>
+                    <strong>{{ service.name }}</strong><br>
+                    Location: {{ service.latitude }}, {{ service.longitude }}<br>
+                    Service Types: {{ service.service_types }}<br>
+                    Priority: {{ service.priority }}<br>
+                    Contact: {{ service.phone_number }} / {{ service.email }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No services matched for this report.</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
