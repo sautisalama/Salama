@@ -8,11 +8,36 @@
 <body>
     <h1>Sauti Salama</h1>
     <h3>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }} ({{ user.email }})</p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="nav-link" style="background:none; border:none; padding:0; cursor:pointer; color:blue; text-decoration:underline;">Logout</button>
+            </form>
+            <a href="{% url 'edit_profile' %}" class="nav-link" style="color:blue; text-decoration:underline;">Edit Profile</a>
+            {% if user.user_type == 'professional' %}
+                <a href="{% url 'professional_bookings' %}" class="nav-link" style="color:blue; text-decoration:underline;">View Bookings</a>
+            {% endif %}
+        {% else %}
+            <li class="nav-item me-3 me-lg-0">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item me-3 me-lg-0">
+                <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+            </li>
+        {% endif %}
         <li class="nav-item me-3 me-lg-0">
             <a class="nav-link" href="{% url 'create_report' %}" id="report-link">Report</a>
         </li>
-       
-       
+        <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="{% url 'create_ngo_profile' %}">Create NGO Profile</a>
+        </li>
+        <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="{% url 'create_professional_profile' %}">Create Professional Profile</a>
+        </li>
+        <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="{% url 'list_professionals' %}">List Professional Services</a>
+        </li>
     </h3>
     <script>
         document.getElementById('report-link').addEventListener('click', function(event) {

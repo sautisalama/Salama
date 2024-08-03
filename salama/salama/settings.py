@@ -51,6 +51,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# ... existing code ...
+
+AUTH_USER_MODEL = 'core.CustomUser'
+
+# Redirect URLs after login/logout
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 ROOT_URLCONF = 'salama.urls'
 
 TEMPLATES = [

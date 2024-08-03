@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+from django.contrib.auth.models import AbstractUser
+
 
 def generate_report_id():
     return 'sauti_salama_' + str(uuid.uuid4())[:8]
@@ -99,3 +101,57 @@ class MatchedService(models.Model):
 
     def __str__(self):
         return f"{self.report} matched with {self.service}"
+
+
+class CustomUser(AbstractUser):
+    USER_TYPE_CHOICES = (
+        ('ngo', 'NGO'),
+        ('professional', 'Professional'),
+        ('survivor', 'Survivor'),
+    )
+    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_groups',  # Unique related_name
+        blank=True,
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_permissions',  # Unique related_name
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
+
+
+class NGOProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    organization_name = models.CharField(max_length=255)
+    service_models = models.TextField()
+    # Add other fields as necessary
+
+class ProfessionalProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    profession = models.CharField(max_length=100)
+    bio = models.TextField()
+    availability = models.CharField(max_length=100)
+    tokens = models.IntegerField(default=3)
+
+    def confirm_booking(self, appointment):
+        if self.tokens > 0:
+            appointment.status = 'confirmed'
+            appointment.save()
+            self.tokens -= 1
+            self.save()
+            return True
+        return False
+
+class Appointment(models.Model):
+    professional = models.ForeignKey(ProfessionalProfile, on_delete=models.CASCADE)
+    survivor = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    status = models.CharField(max_length=20, default='pending')
+    # Add other fields as necessary
