@@ -1,6 +1,6 @@
-# Contributing to Salama Community
+# Contributing to Sauti Salama
 
-Thank you for considering contributing to the Salama Community project! We appreciate your help and want to make the process as smooth as possible. Below are some guidelines and information to help you get started.
+Thank you for considering contributing to the Sauti Salama! We appreciate your help and want to make the process as smooth as possible. Below are some guidelines and information to help you get started.
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -31,8 +31,8 @@ Salama Community is a web-based chat application designed to facilitate real-tim
 ### Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/salama-community.git
-    cd salama-community
+    git clone https://github.com/yourusername/salama.git
+    cd salama
     ```
 
 2. Install dependencies:
@@ -50,7 +50,7 @@ Salama Community is a web-based chat application designed to facilitate real-tim
     python manage.py runserver
     ```
 
-For the frontend, navigate to the `salama/frontend/sautisalama` directory and follow the instructions in the `README.md` file:
+For the frontend, navigate to the [Frontend Repo](https://github.com/sautisalama/Sauti) directory and follow the instructions in the `README.md` file:
 
 ## How to Contribute
 
@@ -114,6 +114,6 @@ When submitting a pull request, please ensure:
 
 ## Community and Support
 
-Join our community on [Discord](https://discord.gg/your-invite-link) for support and discussion. You can also reach out via [email](mailto:support@salama-community.com).
+Join our community on [Whatsapp]() for support and discussion. You can also reach out via [email](mailto:).
 
-Thank you for contributing to Salama Community!
+Thank you for contributing to Sauti Salama
