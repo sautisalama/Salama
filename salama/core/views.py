@@ -82,7 +82,7 @@ class CreateReportView(View):
                     return render(request, 'report.html', {'form': form})
         except Exception as e:
             logger.exception("Error occurred while creating report")
-            return JsonResponse({'error': 'An error occurred', 'details': str(e)}, status=500)
+            return "An internal error has occurred!"
 
 def matched_services_view(request, report_id):
     report = get_object_or_404(Report, id=report_id)
