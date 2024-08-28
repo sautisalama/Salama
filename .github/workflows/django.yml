@@ -26,9 +26,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-      working-directory: ./salama  # Adjusts to the correct path
+      working-directory: ../salama  # Adjusts to the correct path
 
     - name: Run Tests
       run: |
         python manage.py test
-      working-directory: ./salama  # Points to the directory where manage.py is located
+      working-directory: ../salama  # Points to the directory where manage.py is located
