@@ -5,7 +5,7 @@ cffi==1.16.0
 colorama==0.4.6
 cryptography==42.0.4
 distlib==0.3.8
-Django==5.0.8
+Django==5.0.9
 django-filter==23.5
 django-tables2==2.7.0
 django-tables2-column-shifter
